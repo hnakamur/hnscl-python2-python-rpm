@@ -1,11 +1,11 @@
-#!/bin/bash
+#!/bin/bash -x
 set -eu
 
 # NOTE: Edit project_name and rpm_name.
-scl_project_name=hnscl-python2
+scl_project_name=python27
 project_name=${scl_project_name}-python
 
-scl_meta_rpm_name=hn-python2
+scl_meta_rpm_name=python27
 scl_build_rpm_name=${scl_meta_rpm_name}-build
 spec_name=python
 rpm_name=${scl_meta_rpm_name}-python
@@ -37,9 +37,14 @@ download_source_files() {
 }
 
 download_scl_repo() {
-  scl_repo_file=${COPR_USERNAME}-${scl_project_name}-epel-7.repo
-  (cd ${topdir} \
-    && curl -sLO https://copr.fedoraproject.org/coprs/${COPR_USERNAME}/${scl_project_name}/repo/epel-7/${scl_repo_file})
+  scl_repo_file=rhscl-python27-epel-7-x86_64.repo
+  scl_repo_rpm_file=rhscl-python27-epel-7-x86_64-1-2.noarch.rpm
+  if [ ! -f ${scl_repo_rpm_file} ]; then
+    curl -sLO https://www.softwarecollections.org/repos/rhscl/python27/epel-7-x86_64/noarch/${scl_repo_rpm_file}
+    # NOTE: We know there is just one file in this rpm, so use --to-stdout
+    #       to avoid creating a directory tree for the file.
+    rpm2cpio ${scl_repo_rpm_file} | cpio -i --quiet --to-stdout > ${scl_repo_file}
+  fi
 }
 
 create_mock_chroot_cfg() {
