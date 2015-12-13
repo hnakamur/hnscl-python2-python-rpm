@@ -99,7 +99,7 @@ build_rpm_on_copr() {
     #
     # NOTE: Edit description here. You may or may not need to edit instructions.
     curl -s -X POST -u "${COPR_LOGIN}:${COPR_TOKEN}" \
-      --data-urlencode "name=${project_name}" --data-urlencode "${mock_chroot}=y" \
+      --data-urlencode "name=${project_name}" --data-urlencode "${base_chroot}=y" \
       --data-urlencode "description=[Software collection metapackage for python 2 with the prefix directory /opt/hn" \
       --data-urlencode "instructions=\`\`\`
 sudo curl -sL -o /etc/yum.repos.d/${COPR_USERNAME}-${project_name}.repo https://copr.fedoraproject.org/coprs/${COPR_USERNAME}/${project_name}/repo/epel-7/${COPR_USERNAME}-${project_name}-epel-7.repo
@@ -118,7 +118,7 @@ sudo yum install ${rpm_name}-runtime
 
   # Add a new build on copr with uploading a srpm file.
   curl -s -X POST -u "${COPR_LOGIN}:${COPR_TOKEN}" \
-    -F "${mock_chroot}=y" \
+    -F "${base_chroot}=y" \
     -F "pkgs=@${topdir}/SRPMS/${srpm_file};type=application/x-rpm" \
     https://copr.fedoraproject.org/api/coprs/${COPR_USERNAME}/${project_name}/new_build_upload/
 }
