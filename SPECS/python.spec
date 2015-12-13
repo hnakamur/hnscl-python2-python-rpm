@@ -901,6 +901,8 @@ Patch187: 00187-add-RPATH-to-pyexpat.patch
 # Fixes gdb py-bt command not to raise exception while processing
 # statements from eval
 # rhbz#1008154 (patch by Attila Fazekas)
+# TODO: Verify this patch is still needed and filename beocme '<string>'
+# when in eval block (Hiroaki Nakamura)
 Patch189: 00189-gdb-py-bt-dont-raise-exception-from-eval.patch
 
 # 00190 #
