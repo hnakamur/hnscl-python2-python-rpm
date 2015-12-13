@@ -1,6 +1,6 @@
 #!/bin/sh
 set -eu
-imagename=rpmbuild
+imagename=hnsclpython2pythonrpm
 
 usage() {
   cat <<'EOF' 1>&2
