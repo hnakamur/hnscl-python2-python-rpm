@@ -942,7 +942,9 @@ Patch191: 00191-disable-NOOP.patch
 # - XMLRPC library unrestricted decompression of HTTP responses using gzip
 #   enconding
 # rhbz#1046170
-Patch197: xmlrpc_gzip_27_parameter.patch
+# Upstream as of Python 2.7.9
+# https://github.com/python/cpython/commit/841462147951ffb89cdf052c412019207feb9897
+#  Patch197: xmlrpc_gzip_27_parameter.patch
 
 
 # (New patches go here ^^^)
@@ -1299,7 +1301,7 @@ mv Modules/cryptmodule.c Modules/_cryptmodule.c
 %patch189 -p1
 %patch191 -p1
 # 00196: upstream as of Python 2.7.9
-%patch197 -p1
+# 00197: upstream as of Python 2.7.9
 
 
 # This shouldn't be necesarry, but is right now (2.2a3)
