@@ -106,7 +106,7 @@ sudo curl -sL -o /etc/yum.repos.d/${COPR_USERNAME}-${project_name}.repo https://
 \`\`\`
 
 \`\`\`
-sudo yum install ${rpm_name}-runtime
+sudo yum install ${rpm_name}
 \`\`\`" \
       https://copr.fedoraproject.org/api/coprs/${COPR_USERNAME}/new/
 
