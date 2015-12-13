@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -x
 set -eu
 
 # NOTE: Edit project_name and rpm_name.
