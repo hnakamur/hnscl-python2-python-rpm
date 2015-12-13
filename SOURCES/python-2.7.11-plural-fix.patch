@@ -1,0 +1,12 @@
+diff -up Python-2.7.11/Lib/gettext.py.plural Python-2.7.11/Lib/gettext.py
+--- Python-2.7.11/Lib/gettext.py.plural	2015-12-13 08:37:56.263625372 +0000
++++ Python-2.7.11/Lib/gettext.py	2015-12-13 08:39:58.542128633 +0000
+@@ -301,6 +301,8 @@ class GNUTranslations(NullTranslations):
+                     item = item.strip()
+                     if not item:
+                         continue
++                    if item.startswith("#"):
++                        continue
+                     k = v = None
+                     if ':' in item:
+                         k, v = item.split(':', 1)

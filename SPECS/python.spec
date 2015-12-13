@@ -334,7 +334,7 @@ Patch4: python-2.5-cflags.patch
 # Related to upstream issues:
 #   http://bugs.python.org/issue1448060 and http://bugs.python.org/issue1475523
 # though the proposed upstream patches are, alas, different
-Patch6: python-2.5.1-plural-fix.patch
+Patch6: python-2.7.11-plural-fix.patch
 
 # This patch was listed in the changelog as: 
 #  * Fri Sep 14 2007 Jeremy Katz <katzj@redhat.com> - 2.5.1-11
