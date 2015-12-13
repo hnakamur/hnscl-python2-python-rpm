@@ -481,7 +481,7 @@ Patch111: 00111-no-static-lib.patch
 #
 #  See also patch 130 below
 #
-Patch112: python-2.7.3-debug-build.patch
+Patch112: python-2.7.11-debug-build.patch
 
 
 # 00113 #
