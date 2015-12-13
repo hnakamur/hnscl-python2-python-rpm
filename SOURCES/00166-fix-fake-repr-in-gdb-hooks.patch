@@ -1,7 +1,7 @@
-diff -up Python-2.7.3/Tools/gdb/libpython.py.fix-fake-repr-in-gdb-hooks Python-2.7.3/Tools/gdb/libpython.py
---- Python-2.7.3/Tools/gdb/libpython.py.fix-fake-repr-in-gdb-hooks	2013-02-19 17:21:33.541181366 -0500
-+++ Python-2.7.3/Tools/gdb/libpython.py	2013-02-19 17:21:42.090180782 -0500
-@@ -105,6 +105,24 @@ class TruncatedStringIO(object):
+diff -up Python-2.7.11/Tools/gdb/libpython.py.fix-fake-repr-in-gdb-hooks Python-2.7.11/Tools/gdb/libpython.py
+--- Python-2.7.11/Tools/gdb/libpython.py.fix-fake-repr-in-gdb-hooks	2015-12-05 19:47:20.000000000 +0000
++++ Python-2.7.11/Tools/gdb/libpython.py	2015-12-13 10:01:17.632022112 +0000
+@@ -130,6 +130,24 @@ class TruncatedStringIO(object):
      def getvalue(self):
          return self._val
  
@@ -26,7 +26,7 @@ diff -up Python-2.7.3/Tools/gdb/libpython.py.fix-fake-repr-in-gdb-hooks Python-2
  class PyObjectPtr(object):
      """
      Class wrapping a gdb.Value that's a either a (PyObject*) within the
-@@ -232,28 +250,8 @@ class PyObjectPtr(object):
+@@ -257,28 +275,8 @@ class PyObjectPtr(object):
          visiting object graphs with loops).  Analogous to Py_ReprEnter and
          Py_ReprLeave
          '''
@@ -57,7 +57,7 @@ diff -up Python-2.7.3/Tools/gdb/libpython.py.fix-fake-repr-in-gdb-hooks Python-2
  
      def write_repr(self, out, visited):
          '''
-@@ -384,7 +382,7 @@ def _write_instance_repr(out, visited, n
+@@ -409,7 +407,7 @@ def _write_instance_repr(out, visited, n
              if not first:
                  out.write(', ')
              first = False
@@ -66,7 +66,7 @@ diff -up Python-2.7.3/Tools/gdb/libpython.py.fix-fake-repr-in-gdb-hooks Python-2
              out.write('=')
              pyop_val.write_repr(out, visited)
          out.write(')')
-@@ -785,6 +783,8 @@ class PyNoneStructPtr(PyObjectPtr):
+@@ -816,6 +814,8 @@ class PyNoneStructPtr(PyObjectPtr):
      def proxyval(self, visited):
          return None
  
@@ -75,7 +75,7 @@ diff -up Python-2.7.3/Tools/gdb/libpython.py.fix-fake-repr-in-gdb-hooks Python-2
  
  class PyFrameObjectPtr(PyObjectPtr):
      _typename = 'PyFrameObject'
-@@ -861,7 +861,10 @@ class PyFrameObjectPtr(PyObjectPtr):
+@@ -892,7 +892,10 @@ class PyFrameObjectPtr(PyObjectPtr):
          '''Get the path of the current Python source file, as a string'''
          if self.is_optimized_out():
              return '(frame information optimized out)'
@@ -87,7 +87,7 @@ diff -up Python-2.7.3/Tools/gdb/libpython.py.fix-fake-repr-in-gdb-hooks Python-2
  
      def current_line_num(self):
          '''Get current line number as an integer (1-based)
-@@ -907,7 +910,7 @@ class PyFrameObjectPtr(PyObjectPtr):
+@@ -943,7 +946,7 @@ class PyFrameObjectPtr(PyObjectPtr):
                  out.write(', ')
              first = False
  
@@ -96,21 +96,23 @@ diff -up Python-2.7.3/Tools/gdb/libpython.py.fix-fake-repr-in-gdb-hooks Python-2
              out.write('=')
              pyop_value.write_repr(out, visited)
  
-@@ -1252,8 +1255,11 @@ class Frame(object):
-             if pyop:
-                 sys.stdout.write('#%i %s\n' % (self.get_index(), pyop.get_truncated_repr(MAX_OUTPUT_LEN)))
+@@ -1392,8 +1395,13 @@ class Frame(object):
+                 write_unicode(sys.stdout, '#%i %s\n' % (self.get_index(), line))
                  if not pyop.is_optimized_out():
--                    line = pyop.current_line()
--                    sys.stdout.write('    %s\n' % line.strip())
+                     line = pyop.current_line()
+-                    if line is not None:
+-                        sys.stdout.write('    %s\n' % line.strip())
 +                    try:
 +                        line = pyop.current_line()
-+                        sys.stdout.write('    %s\n' % line.strip())
++                        if line is not None:
++                            sys.stdout.write('    %s\n' % line.strip())
 +                    except CantReadFilename:
-+                        sys.stdout.write('    %s\n' % '(unable to read filename)')
++                        if line is not None:
++                            sys.stdout.write('    %s\n' % '(unable to read filename)')
              else:
                  sys.stdout.write('#%i (unable to read python frame information)\n' % self.get_index())
          else:
-@@ -1303,7 +1309,11 @@ class PyList(gdb.Command):
+@@ -1466,7 +1474,11 @@ class PyList(gdb.Command):
              print('Unable to read information on python frame')
              return
  
