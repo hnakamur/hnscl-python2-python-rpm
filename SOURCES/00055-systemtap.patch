@@ -54,10 +54,10 @@ diff -up Python-2.7rc1/Include/pydtrace.d.systemtap Python-2.7rc1/Include/pydtra
 +#pragma D attributes Private/Private/Common provider python function
 +#pragma D attributes Evolving/Evolving/Common provider python name
 +#pragma D attributes Evolving/Evolving/Common provider python args
-diff -up Python-2.7rc1/Makefile.pre.in.systemtap Python-2.7rc1/Makefile.pre.in
---- Python-2.7rc1/Makefile.pre.in.systemtap	2010-06-06 10:53:15.488978775 -0400
-+++ Python-2.7rc1/Makefile.pre.in	2010-06-06 11:05:30.411100568 -0400
-@@ -298,6 +298,7 @@ PYTHON_OBJS=	\
+diff -up Python-2.7.11/Makefile.pre.in.systemtap Python-2.7.11/Makefile.pre.in
+--- Python-2.7.11/Makefile.pre.in.systemtap	2015-12-13 08:48:27.710224631 +0000
++++ Python-2.7.11/Makefile.pre.in	2015-12-13 08:50:10.417917610 +0000
+@@ -358,6 +358,7 @@ PYTHON_OBJS=	\
  		Python/formatter_unicode.o \
  		Python/formatter_string.o \
  		Python/$(DYNLOADFILE) \
@@ -65,7 +65,7 @@ diff -up Python-2.7rc1/Makefile.pre.in.systemtap Python-2.7rc1/Makefile.pre.in
  		$(LIBOBJS) \
  		$(MACHDEP_OBJS) \
  		$(THREADOBJ)
-@@ -599,6 +600,18 @@ Python/formatter_unicode.o: $(srcdir)/Py
+@@ -707,6 +708,18 @@ Python/formatter_unicode.o: $(srcdir)/Py
  Python/formatter_string.o: $(srcdir)/Python/formatter_string.c \
  				$(STRINGLIB_HEADERS)
  
@@ -84,12 +84,12 @@ diff -up Python-2.7rc1/Makefile.pre.in.systemtap Python-2.7rc1/Makefile.pre.in
  ############################################################################
  # Header files
  
-@@ -1251,7 +1264,7 @@ Python/thread.o: @THREADHEADERS@
+@@ -1425,7 +1438,7 @@ Python/thread.o: @THREADHEADERS@
  .PHONY: frameworkinstall frameworkinstallframework frameworkinstallstructure
  .PHONY: frameworkinstallmaclib frameworkinstallapps frameworkinstallunixtools
  .PHONY: frameworkaltinstallunixtools recheck autoconf clean clobber distclean
--.PHONY: smelly funny patchcheck touch altmaninstall
-+.PHONY: smelly funny patchcheck touch altmaninstall buildinclude
+-.PHONY: smelly funny patchcheck touch altmaninstall commoninstall
++.PHONY: smelly funny patchcheck touch altmaninstall commoninstall buildinclude
  .PHONY: gdbhooks
  
  # IF YOU PUT ANYTHING HERE IT WILL GO AWAY
