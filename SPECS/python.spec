@@ -1,3 +1,39 @@
+%global scl_name_prefix hn-
+%global scl_name_base python
+%global scl_name_version 2
+%global scl %{scl_name_prefix}%{scl_name_base}%{scl_name_version}
+
+# NOTE: You must set _scl_prefix before '%scl_package %scl'.
+%global _scl_prefix /opt/hn
+# NOTE: The following variables must be re-evaluated after changing _scl_prefix above.
+%global _scl_scripts            %{_scl_prefix}/%{scl}
+%global _scl_root               %{_scl_prefix}/%{scl}/root
+%global _prefix                 %{_scl_root}/usr
+%global _sysconfdir             %{_scl_root}/etc
+%global _sharedstatedir         %{_scl_root}/var/lib
+%global _localstatedir          %{_scl_root}/var
+
+%global _includedir             %{_prefix}/include
+%if "%{_lib}" == "lib64"
+%global _libdir                 %{_prefix}/lib64
+%else
+%global _libdir                 %{_prefix}/lib
+%endif
+%global _datadir                %{_prefix}/share
+%global _docdir                 %{_prefix}/share/doc
+%global _datarootdir            %{_prefix}/share
+%global _infodir                %{_prefix}/share/info
+%global _mandir                 %{_prefix}/share/man
+%global _defaultdocdir          %{_prefix}/share/doc
+
+%global _exec_prefix            %{_prefix}
+%global _bindir                 %{_exec_prefix}/bin
+%global _sbindir                %{_exec_prefix}/sbin
+
+# Do not check rpaths
+%global __arch_install_post /usr/lib/rpm/check-buildroot
+
+
 # scl stuff
 %{?scl:%scl_package python}
 %{!?scl:%global pkg_name %{name}}
