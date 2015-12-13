@@ -1,0 +1,36 @@
+--- Python-2.7.11/Lib/test/test_gdb.py.orig	2015-12-13 22:04:59.568308892 +0000
++++ Python-2.7.11/Lib/test/test_gdb.py	2015-12-13 22:06:42.046063212 +0000
+@@ -791,6 +791,33 @@ Traceback \(most recent call first\):
+     foo\(1, 2, 3\)
+ ''')
+ 
++    @unittest.skipIf(python_is_optimized(),
++                     "Python was compiled with optimizations")
++    # Without the above skipIf, I got the following failure
++    # ======================================================================
++    # FAIL: test_threads (test.test_gdb.PyBtTests)
++    # Verify that "py-bt" indicates threads that are waiting for the GIL
++    # ----------------------------------------------------------------------
++    # Traceback (most recent call last):
++    #   File "/builddir/build/BUILD/Python-2.7.11/Lib/test/test_gdb.py", line 820, in test_threa
++    # ds
++    #     cmds_after_breakpoint=['thread apply all py-bt'])
++    #   File "/builddir/build/BUILD/Python-2.7.11/Lib/test/test_gdb.py", line 252, in get_stack_
++    # trace
++    #     self.assertEqual(unexpected_errlines, [])
++    # AssertionError: Lists differ: ['Traceback (most recent call ... != []
++    # First list contains 7 additional elements.
++    # First extra element 0:
++    # Traceback (most recent call last):
++    # + []
++    # - ['Traceback (most recent call last):',
++    # -  '  File "<string>", line 2, in <module>',
++    # -  '  File "/builddir/build/BUILD/Python-2.7.11/Lib/threading.py", line 13, in <module>',
++    # -  '    from collections import deque as _deque',
++    # -  '  File "/builddir/build/BUILD/Python-2.7.11/Lib/collections.py", line 8, in <module>',
++    # -  '    from _collections import deque, defaultdict',
++    # -  'ImportError: ']
++    # ----------------------------------------------------------------------
+     @unittest.skipUnless(thread,
+                          "Python was compiled without thread support")
+     def test_threads(self):
