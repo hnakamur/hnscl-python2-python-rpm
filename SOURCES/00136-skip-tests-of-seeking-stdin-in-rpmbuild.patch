@@ -1,11 +1,19 @@
-diff -up Python-2.7.6/Lib/test/test_file2k.py.stdin-test Python-2.7.6/Lib/test/test_file2k.py
---- Python-2.7.6/Lib/test/test_file2k.py.stdin-test	2013-11-10 08:36:40.000000000 +0100
-+++ Python-2.7.6/Lib/test/test_file2k.py	2014-01-29 14:28:01.029488055 +0100
-@@ -223,6 +223,7 @@ class OtherFileTests(unittest.TestCase):
+diff -up Python-2.7.11/Lib/test/test_file2k.py.stdin-test Python-2.7.11/Lib/test/test_file2k.py
+--- Python-2.7.11/Lib/test/test_file2k.py.stdin-test	2015-12-13 09:03:53.237525561 +0000
++++ Python-2.7.11/Lib/test/test_file2k.py	2015-12-13 09:05:05.160481447 +0000
+@@ -231,6 +231,7 @@ class OtherFileTests(unittest.TestCase):
              else:
                  f.close()
  
 +    @unittest._skipInRpmBuild('seems not to raise the exception when run in Koji')
-     def testStdin(self):
-         # This causes the interpreter to exit on OSF1 v5.1.
-         if sys.platform != 'osf1V5':
+     def testStdinSeek(self):
+         if sys.platform == 'osf1V5':
+             # This causes the interpreter to exit on OSF1 v5.1.
+@@ -244,6 +245,7 @@ class OtherFileTests(unittest.TestCase):
+ 
+         self.assertRaises(IOError, sys.stdin.seek, -1)
+ 
++    @unittest._skipInRpmBuild('seems not to raise the exception when run in Koji')
+     def testStdinTruncate(self):
+         self.assertRaises(IOError, sys.stdin.truncate)
+ 
