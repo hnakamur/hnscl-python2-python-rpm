@@ -55,16 +55,6 @@ diff -up Python-2.7.11/Lib/test/test_gc.py.gc-assertions Python-2.7.11/Lib/test/
 +        # Verify that stderr has a useful error message:
 +        self.assertRegexpMatches(stderr,
 +            b'Modules/gcmodule.c:[0-9]+: visit_decref: Assertion `gc->gc.gc_refs != 0\' failed.')
-+        self.assertRegexpMatches(stderr,
-+            b'refcount was too small')
-+        self.assertRegexpMatches(stderr,
-+            b'object  : \[\]')
-+        self.assertRegexpMatches(stderr,
-+            b'type    : list')
-+        self.assertRegexpMatches(stderr,
-+            b'refcount: 1')
-+        self.assertRegexpMatches(stderr,
-+            b'address : 0x[0-9a-f]+')
 +
  class GCTogglingTests(unittest.TestCase):
      def setUp(self):
