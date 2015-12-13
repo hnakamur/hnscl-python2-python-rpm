@@ -54,7 +54,7 @@ diff -up Python-2.7.11/Lib/test/test_gc.py.gc-assertions Python-2.7.11/Lib/test/
 +        p.stderr.close()
 +        # Verify that stderr has a useful error message:
 +        self.assertRegexpMatches(stderr,
-+            b'Modules/gcmodule.c:[0-9]+: visit_decref: Assertion "gc->gc.gc_refs != 0" failed.')
++            b'Modules/gcmodule.c:[0-9]+: visit_decref: Assertion `gc->gc.gc_refs != 0\' failed.')
 +        self.assertRegexpMatches(stderr,
 +            b'refcount was too small')
 +        self.assertRegexpMatches(stderr,
