@@ -100,6 +100,7 @@ build_rpm_on_copr() {
     # NOTE: Edit description here. You may or may not need to edit instructions.
     curl -s -X POST -u "${COPR_LOGIN}:${COPR_TOKEN}" \
       --data-urlencode "name=${project_name}" --data-urlencode "${base_chroot}=y" \
+      --data-urlencode 'repos=https://copr-be.cloud.fedoraproject.org/results/hnakamur/hnscl-python2/epel-7-$basearch/' \
       --data-urlencode "description=[Software collection metapackage for python 2 with the prefix directory /opt/hn" \
       --data-urlencode "instructions=\`\`\`
 sudo curl -sL -o /etc/yum.repos.d/${COPR_USERNAME}-${project_name}.repo https://copr.fedoraproject.org/coprs/${COPR_USERNAME}/${project_name}/repo/epel-7/${COPR_USERNAME}-${project_name}-epel-7.repo
