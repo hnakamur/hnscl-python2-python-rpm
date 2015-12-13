@@ -1,9 +1,9 @@
-diff -up Python-2.7.3/Lib/pydoc.py.no_gui Python-2.7.3/Lib/pydoc.py
---- Python-2.7.3/Lib/pydoc.py.no_gui	2012-04-09 19:07:31.000000000 -0400
-+++ Python-2.7.3/Lib/pydoc.py	2013-02-19 13:48:44.480054515 -0500
-@@ -19,9 +19,6 @@ of all available modules.
- Run "pydoc -p <port>" to start an HTTP server on a given port on the
- local machine to generate documentation web pages.
+diff -up Python-2.7.11/Lib/pydoc.py.no_gui Python-2.7.11/Lib/pydoc.py
+--- Python-2.7.11/Lib/pydoc.py.no_gui	2015-12-05 19:47:02.000000000 +0000
++++ Python-2.7.11/Lib/pydoc.py	2015-12-13 08:32:00.959919670 +0000
+@@ -20,9 +20,6 @@ Run "pydoc -p <port>" to start an HTTP s
+ local machine to generate documentation web pages.  Port number 0 can be
+ used to get an arbitrary unused port.
  
 -For platforms without a command line, "pydoc -g" starts the HTTP server
 -and also pops up a little window for controlling it.
@@ -11,7 +11,7 @@ diff -up Python-2.7.3/Lib/pydoc.py.no_gui Python-2.7.3/Lib/pydoc.py
  Run "pydoc -w <name>" to write out the HTML documentation for a module
  to a file named "<name>.html".
  
-@@ -2290,9 +2287,6 @@ def cli():
+@@ -2340,9 +2337,6 @@ def cli():
          writing = 0
  
          for opt, val in opts:
@@ -21,9 +21,9 @@ diff -up Python-2.7.3/Lib/pydoc.py.no_gui Python-2.7.3/Lib/pydoc.py
              if opt == '-k':
                  apropos(val)
                  return
-@@ -2346,13 +2340,10 @@ def cli():
- %s -p <port>
-     Start an HTTP server on the given port on the local machine.
+@@ -2397,13 +2391,10 @@ def cli():
+     Start an HTTP server on the given port on the local machine.  Port
+     number 0 can be used to get an arbitrary unused port.
  
 -%s -g
 -    Pop up a graphical interface for finding and serving documentation.
