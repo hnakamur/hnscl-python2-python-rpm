@@ -1921,6 +1921,8 @@ rm -fr %{buildroot}
 %{pylibdir}/email/*.py*
 %{pylibdir}/email/mime
 %{pylibdir}/encodings
+%{pylibdir}/ensurepip/*.py*
+%{pylibdir}/ensurepip/_bundled/*.whl
 %{pylibdir}/hotshot
 %{pylibdir}/idlelib
 %{pylibdir}/importlib
