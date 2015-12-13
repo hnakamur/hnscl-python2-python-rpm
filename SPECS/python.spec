@@ -934,7 +934,9 @@ Patch191: 00191-disable-NOOP.patch
 # Fix for CVE-2013-1752
 # - multiple unbound readline() DoS flaws in python stdlib
 # rhbz#1046174
-Patch196: CVE-2013-1752.patch
+# Upstream as of Python 2.7.9
+# https://github.com/python/cpython/commit/99e1198170a0e05a2855ab262b34efd8d65c64d4
+#  Patch196: CVE-2013-1752.patch
 
 # Fix for CVE-2013-1753
 # - XMLRPC library unrestricted decompression of HTTP responses using gzip
@@ -1296,7 +1298,7 @@ mv Modules/cryptmodule.c Modules/_cryptmodule.c
 %patch187 -p1
 %patch189 -p1
 %patch191 -p1
-%patch196 -p1
+# 00196: upstream as of Python 2.7.9
 %patch197 -p1
 
 
