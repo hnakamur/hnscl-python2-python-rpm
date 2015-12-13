@@ -1,6 +1,6 @@
 diff -up Python-2.7.11/Lib/test/test_gc.py.gc-assertions Python-2.7.11/Lib/test/test_gc.py
---- Python-2.7.11/Lib/test/test_gc.py.gc-assertions	2015-12-13 10:03:24.645178822 +0000
-+++ Python-2.7.11/Lib/test/test_gc.py	2015-12-13 10:05:40.851023704 +0000
+--- Python-2.7.11/Lib/test/test_gc.py.gc-assertions	2015-12-13 17:29:01.696502634 +0000
++++ Python-2.7.11/Lib/test/test_gc.py	2015-12-13 17:31:32.528681221 +0000
 @@ -1,6 +1,7 @@
  import unittest
 -from test.test_support import verbose, run_unittest, start_threads
@@ -19,7 +19,7 @@ diff -up Python-2.7.11/Lib/test/test_gc.py.gc-assertions Python-2.7.11/Lib/test/
  ### Tests
  ###############################################################################
  
-@@ -541,6 +544,49 @@ class GCTests(unittest.TestCase):
+@@ -541,6 +544,39 @@ class GCTests(unittest.TestCase):
              # would be damaged, with an empty __dict__.
              self.assertEqual(x, None)
  
@@ -27,7 +27,7 @@ diff -up Python-2.7.11/Lib/test/test_gc.py.gc-assertions Python-2.7.11/Lib/test/
 +                     'built with -NDEBUG')
 +    def test_refcount_errors(self):
 +        # Verify the "handling" of objects with broken refcounts
-+ 
++
 +        import_module("ctypes") #skip if not supported
 +
 +        import subprocess
