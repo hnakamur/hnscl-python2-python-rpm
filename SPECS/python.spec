@@ -155,8 +155,8 @@
 Summary: An interpreted, interactive, object-oriented programming language
 Name: %{?scl_prefix}%{python}
 # Remember to also rebase python-docs when changing this:
-Version: 2.7.8
-Release: 3%{?dist}
+Version: 2.7.11
+Release: 1%{?dist}
 License: Python
 Group: Development/Languages
 %{?scl:Requires: %{scl}-runtime}
@@ -2158,6 +2158,9 @@ rm -fr %{buildroot}
 # ======================================================
 
 %changelog
+* Sun Dec 13 2015 Hiroaki Nakamura <hnakamur@gmail.com> - 2.7.11-1
+- Update to 2.7.11.
+
 * Tue May 19 2015 Matej Stuchlik <mstuchli@redhat.com> - 2.7.8-3
 - Add httplib fix for CVE-2013-1752
 Resolves: rhbz#1187779
