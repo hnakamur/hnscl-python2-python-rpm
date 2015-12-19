@@ -40,6 +40,7 @@ EOF
 }
 
 topdir=`rpm --eval '%{_topdir}'`
+cd "${topdir}"
 topdir_in_chroot=/builddir/build
 
 download_source_files() {
@@ -52,8 +53,7 @@ download_source_files() {
 
 download_scl_repo() {
   scl_repo_file=${COPR_USERNAME}-${scl_project_name}-epel-7.repo
-  (cd ${topdir} \
-    && curl -sLO https://copr.fedoraproject.org/coprs/${COPR_USERNAME}/${scl_project_name}/repo/epel-7/${scl_repo_file})
+  curl -sLO https://copr.fedoraproject.org/coprs/${COPR_USERNAME}/${scl_project_name}/repo/epel-7/${scl_repo_file}
 }
 
 create_mock_chroot_cfg() {
@@ -65,10 +65,9 @@ create_mock_chroot_cfg() {
   # NOTE: Support of adding repository was added to mock,
   #       so you can use it in the future.
   # See: https://github.com/rpm-software-management/ci-dnf-stack/issues/30
-  (cd ${topdir} \
-    && echo | sed -e '$d;N;P;/\n"""$/i\
+  echo | sed -e '$d;N;P;/\n"""$/i\
 ' -e '/\n"""$/r '${scl_repo_file} -e '/\n"""$/a\
-' -e D /etc/mock/${base_chroot}.cfg - | sudo sh -c "cat > /etc/mock/${mock_chroot}.cfg")
+' -e D /etc/mock/${base_chroot}.cfg - | sudo sh -c "cat > /etc/mock/${mock_chroot}.cfg"
 }
 
 build_srpm() {
@@ -87,6 +86,7 @@ build_rpm_with_mock() {
   /usr/bin/mock -r ${mock_chroot} --install scl-utils-build ${scl_build_rpm_name}
   /usr/bin/mock -r ${mock_chroot} --no-clean --rebuild ${topdir}/SRPMS/${srpm_file}
 
+  mock_result_dir=/var/lib/mock/${base_chroot}/result
   if [ -n "`find ${mock_result_dir} -maxdepth 1 -name \"${rpm_name}-*${rpm_version_release}.${arch}.rpm\" -print -quit`" ]; then
     mkdir -p ${topdir}/RPMS/${arch}
     cp ${mock_result_dir}/${rpm_name}-*${rpm_version_release}.${arch}.rpm ${topdir}/RPMS/${arch}/

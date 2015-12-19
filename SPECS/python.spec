@@ -156,7 +156,7 @@ Summary: An interpreted, interactive, object-oriented programming language
 Name: %{?scl_prefix}%{python}
 # Remember to also rebase python-docs when changing this:
 Version: 2.7.11
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: Python
 Group: Development/Languages
 %{?scl:Requires: %{scl}-runtime}
@@ -1708,7 +1708,7 @@ sed -i -e "s/'pyconfig.h'/'%{_pyconfig_h}'/" \
 mkdir -p %{buildroot}/%{?scl:%_root_sysconfdir}%{!?scl:%_sysconfdir}/rpm
 install -m 644 %{SOURCE6} %{buildroot}/%{?scl:%_root_sysconfdir}%{!?scl:%_sysconfdir}/rpm/macros.python2%{?scl:.%{scl}}
 %{?scl:sed -i 's|^\(%@scl@__python2\)|\1 %{_bindir}/python2|' %{buildroot}%{_root_sysconfdir}/rpm/macros.python2.%{scl}}
-%{?scl:sed -i 's|@scl@|%{scl}|g' %{buildroot}%{_root_sysconfdir}/rpm/macros.python2.%{scl}}
+%{?scl:sed -i "s|@scl@|`echo '%{scl}' | sed 's/-/_/g'`|g" %{buildroot}%{_root_sysconfdir}/rpm/macros.python2.%{scl}}
 
 # Ensure that the curses module was linked against libncursesw.so, rather than
 # libncurses.so (bug 539917)
