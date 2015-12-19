@@ -11,6 +11,19 @@ spec_name=python
 rpm_name=${scl_meta_rpm_name}-python
 arch=x86_64
 
+# NOTE: Edit description here.
+copr_project_description="Software collection package for python 2 with the prefix directory /opt/hn"
+
+# NOTE: You may or may not need to edit instructions.
+copr_project_instructions="\`\`\`
+sudo curl -sL -o /etc/yum.repos.d/${COPR_USERNAME}-${scl_project_name}.repo https://copr.fedoraproject.org/coprs/${COPR_USERNAME}/${scl_project_name}/repo/epel-7/${COPR_USERNAME}-${scl_project_name}-epel-7.repo
+sudo curl -sL -o /etc/yum.repos.d/${COPR_USERNAME}-${project_name}.repo https://copr.fedoraproject.org/coprs/${COPR_USERNAME}/${project_name}/repo/epel-7/${COPR_USERNAME}-${project_name}-epel-7.repo
+\`\`\`
+
+\`\`\`
+sudo yum -y install ${rpm_name}
+\`\`\`"
+
 spec_file=${spec_name}.spec
 base_chroot=epel-7-${arch}
 mock_chroot=epel-7-${scl_project_name}-${arch}
@@ -101,14 +114,8 @@ build_rpm_on_copr() {
     curl -s -X POST -u "${COPR_LOGIN}:${COPR_TOKEN}" \
       --data-urlencode "name=${project_name}" --data-urlencode "${base_chroot}=y" \
       --data-urlencode 'repos=https://copr-be.cloud.fedoraproject.org/results/hnakamur/hnscl-python2/epel-7-$basearch/' \
-      --data-urlencode "description=[Software collection metapackage for python 2 with the prefix directory /opt/hn" \
-      --data-urlencode "instructions=\`\`\`
-sudo curl -sL -o /etc/yum.repos.d/${COPR_USERNAME}-${project_name}.repo https://copr.fedoraproject.org/coprs/${COPR_USERNAME}/${project_name}/repo/epel-7/${COPR_USERNAME}-${project_name}-epel-7.repo
-\`\`\`
-
-\`\`\`
-sudo yum install ${rpm_name}
-\`\`\`" \
+      --data-urlencode "description=${copr_project_description}" \
+      --data-urlencode "instructions=${copr_project_instructions}" \
       https://copr.fedoraproject.org/api/coprs/${COPR_USERNAME}/new/
 
     # NOTE: Add scl-utils-build package to chroot.
