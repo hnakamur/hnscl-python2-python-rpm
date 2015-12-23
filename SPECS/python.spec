@@ -96,7 +96,7 @@
 %global with_gdbm 1
 
 # Turn this to 0 to turn off the "check" phase:
-%global run_selftest_suite 0
+%global run_selftest_suite 1
 
 # Some of the files below /usr/lib/pythonMAJOR.MINOR/test  (e.g. bad_coding.py)
 # are deliberately invalid, leading to SyntaxError exceptions if they get
